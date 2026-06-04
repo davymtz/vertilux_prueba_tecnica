@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { User } from '@/types'
 import Link from 'next/link'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import AuthGuard from '@/components/auth-guard'
 
@@ -23,7 +23,6 @@ import { Separator } from '@/components/ui/separator'
 
 import {
   Home,
-  ClipboardList,
   LogOut,
   Menu,
   Wallet,
@@ -50,7 +49,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
   const pathname = usePathname()
   const logoutMutation = useLogout()
   const [sidebarOpen, setSidebarOpen] = useState(false)

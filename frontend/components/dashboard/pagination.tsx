@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 interface Props {
   page: number
   limit: number
-  lastPage: number
+  lastPage?: number
   onPageChange: (page: number) => void
   onLimitChange: (limit: number) => void
 }
@@ -12,7 +12,7 @@ interface Props {
 export function Pagination({
   page,
   limit,
-  lastPage,
+  lastPage = 1,
   onPageChange,
   onLimitChange,
 }: Props) {

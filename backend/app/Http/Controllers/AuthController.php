@@ -16,13 +16,18 @@ class AuthController extends Controller
         $credentials = $request->toArray();
 
         if (!Auth::attempt($credentials)) {
-            // throw new NotFoundException('Usuario no encontrado');
             return response()->json([
                 'message' => 'Credenciales no válidas'
             ], 422);
         }
 
         $user = Auth::user();
+
+        if (!$user->isAdmin()) {
+            return response()->json([
+                'message' => "El usuario no tiene permisos"
+            ], 422);
+        }
 
         $token = $user->createToken('sanctum-personal');
 

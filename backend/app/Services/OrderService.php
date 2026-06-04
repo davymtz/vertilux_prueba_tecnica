@@ -45,7 +45,8 @@ class OrderService
             'totalOrders' => $this->getTotalOrders($request),
             'paidOrders' => $this->getPaidOrders($request),
             'pendingOrders' => $this->getPendingOrders($request),
-            'refundedOrders' => $this->getRefundedOrders($request)
+            'refundedOrders' => $this->getRefundedOrders($request),
+            // 'revenue' => $this->getRevenue($request)
         ];
     }
 
@@ -68,6 +69,11 @@ class OrderService
     {
         return (float) $this->QueryBuilder($request)->where("orders.status", "refunded")->count("orders.id");
     }
+    
+    // private function getRevenue(OrderIndexRequest $request)
+    // {
+    //     return (float) $this->QueryBuilder($request)->where("orders.status", "paid")->sum("orders.amount");
+    // }
 
     private function QueryBuilder(OrderIndexRequest $request)
     {

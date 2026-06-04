@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
                 'email'      => 'admin@test.com',
                 'phone'      => '+52 55 0000 0001',
                 'country'    => 'MX',
-                'password'   => Hash::make('123456')
+                'password'   => Hash::make('123456'),
+                'role'       => "admin"
             ],
             // Clientes de las órdenes
             ['id' => '019e809c-f375-7322-98bb-1968c4419322', 'name' => 'Sofía Ramírez',   'email' => 'sofia@empresa.mx',    'phone' => '+52 55 1234 0001', 'country' => 'MX', 'password' => Hash::make('password')/*, 'created_at' => '2024-05-01 10:00:00', 'updated_at' => '2024-05-01 10:00:00'*/],
@@ -47,7 +48,8 @@ class UserSeeder extends Seeder
                 'email' => $user["email"],
                 'phone' => $user["phone"],
                 'country' => $user["country"],
-                'password' => $user["password"]
+                'password' => $user["password"],
+                'role' => $user["role"] ?? "user"
             ]);
         }
     }

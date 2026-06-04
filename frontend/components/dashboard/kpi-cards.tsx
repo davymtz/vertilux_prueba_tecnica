@@ -6,17 +6,19 @@ import {
 } from '@/components/ui/card'
 
 interface Props {
-  totalOrders: number
-  paidOrders: number
-  pendingOrders: number
-  refundedOrders: number
+  totalOrders?: number
+  paidOrders?: number
+  pendingOrders?: number
+  refundedOrders?: number
+  // revenue?: number
 }
 
 export function KpiCards({
-  totalOrders,
-  paidOrders,
-  pendingOrders,
-  refundedOrders,
+  totalOrders = 0,
+  paidOrders = 0,
+  pendingOrders = 0,
+  refundedOrders = 0,
+  // revenue = 0
 }: Props) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -68,7 +70,18 @@ export function KpiCards({
           </p>
         </CardContent>
       </Card>
+      
+      {/* <Card>
+        <CardHeader>
+          <CardTitle>Revenue</CardTitle>
+        </CardHeader>
 
+        <CardContent>
+          <p className="text-3xl font-bold">
+            {revenue}
+          </p>
+        </CardContent>
+      </Card> */}
     </div>
   )
 }

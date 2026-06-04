@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { OrdersFilters } from '@/components/dashboard/orders-filters'
 import { Pagination } from '@/components/dashboard/pagination'
-import { Separator } from '@/components/ui/separator'
 import { useKpis } from '@/hooks/use-kpis'
 
 export default function DashboardPage() {
@@ -15,11 +14,11 @@ export default function DashboardPage() {
   const [limit, setLimit] = useState(10)
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState('')
-  const [sort_by, setSortBy] = useState('created_at')
-  const [sort_direction, setSortDirection] = useState<'asc' | 'desc'>('desc')
+  const [sort_by] = useState('created_at')
+  const [sort_direction] = useState<'asc' | 'desc'>('desc')
   const [debouncedSearch] = useDebounce(search, 500)
 
-  const { data:ordersData } = useOrders({
+  const { data: ordersData } = useOrders({
     page,
     limit,
     search: debouncedSearch,
@@ -27,8 +26,8 @@ export default function DashboardPage() {
     sort_by,
     sort_direction,
   })
-  
-  const { data:kpisData } = useKpis({
+
+  const { data: kpisData } = useKpis({
     page,
     limit,
     search: debouncedSearch,
@@ -49,9 +48,10 @@ export default function DashboardPage() {
       </div>
       <KpiCards
         totalOrders={kpisData?.data?.totalOrders}
-        paidOrders={kpisData?.data?.pendingOrders}
+        paidOrders={kpisData?.data?.paidOrders}
         pendingOrders={kpisData?.data?.pendingOrders}
         refundedOrders={kpisData?.data?.refundedOrders}
+        // revenue={kpisData?.data?.revenue}
       />
       <div>
         <h2 className="text-xl font-semibold mb-4">
@@ -62,17 +62,21 @@ export default function DashboardPage() {
           status={status}
           onSearchChange={setSearch}
           onStatusChange={setStatus}
-        /> <br />
-        <OrdersTable
-          orders={ordersData?.data?.items ?? []}
-        /> <br />
-        <Pagination
-          page={page}
-          limit={limit}
-          lastPage={ordersData?.data?.lastPage}
-          onPageChange={setPage}
-          onLimitChange={setLimit}
         />
+        <div className="mt-4">
+          <OrdersTable
+            orders={ordersData?.data?.items ?? []}
+          />
+        </div>
+        <div className="mt-4">
+          <Pagination
+            page={page}
+            limit={limit}
+            lastPage={ordersData?.data?.lastPage}
+            onPageChange={setPage}
+            onLimitChange={setLimit}
+          />
+        </div>
       </div>
     </div>
   )

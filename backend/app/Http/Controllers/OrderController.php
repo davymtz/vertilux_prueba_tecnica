@@ -36,7 +36,7 @@ class OrderController extends Controller
 
             return new DetailOrderResource($orderDetail);
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
 
@@ -50,7 +50,7 @@ class OrderController extends Controller
                 'data' => $kpis,
             ], 200);
         } catch (\Throwable $th) {
-            return response()->json(["data" => "Mensaje desconocido"], 500);
+            return response()->json(["data" => "Mensaje desconocido", "error" => $th->getMessage()], 500);
         }
     }
 }

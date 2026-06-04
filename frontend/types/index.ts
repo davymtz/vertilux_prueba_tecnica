@@ -88,17 +88,23 @@ export interface StatusLog {
 }
 
 export interface OrdersResponse {
-  data: OrderListingResource[]
-  total: number
-  current_page: number
-  last_page: number
+  data: {
+    items: OrderListingResource[]
+    total: number
+    perPage: number
+    currentPage: number
+    lastPage: number
+  }
 }
 
 export interface KpisResponse {
-  totalOrders: number
-  paidOrders: number
-  pendingOrders: number
-  refundedOrders: number
+  data: {
+    totalOrders: number
+    paidOrders: number
+    pendingOrders: number
+    refundedOrders: number
+    // revenue: number
+  }
 }
 
 export interface OrdersParams {

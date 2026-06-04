@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, "order_id", "id");
     }
+
+    public function scopeIsAdmin()
+    {
+        return $this->role === "admin";
+    }
 }

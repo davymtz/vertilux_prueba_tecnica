@@ -15,8 +15,8 @@ class OrderIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'string',
-            'status' => 'string',
+            'search' => 'nullable|string',
+            'status' => 'nullable|string',
             'sort_by' => 'string',
             'sort_direction' => 'nullable|string',
             'page' => 'integer|min:1',
