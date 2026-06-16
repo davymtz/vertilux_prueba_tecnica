@@ -3,7 +3,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: docker_configs/php/Dockerfile
+      dockerfile: docker_configs/php/Dockerfile_back
     container_name: laravel-app
     working_dir: /var/www
     volumes:
@@ -14,14 +14,17 @@ services:
       - app-network
 
   frontend:
-    image: node:22-alpine
+    build:
+      context: .
+      dockerfile: docker_configs/front/Dockerfile_front
+    depends_on:
+      - backend
     container_name: next-app
     working_dir: /app
     volumes:
       - ./frontend:/app
     tty: true
     stdin_open: true
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && npm run dev -- --hostname 0.0.0.0"
     ports:
       - "3000:3000"
     networks:
@@ -29,7 +32,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: nginx
+    container_name: nginx_vertilux
     ports:
       - "80:80"
     volumes:
@@ -57,8 +60,6 @@ services:
       - app-network
 
 volumes:
-  backend:
-  frontend:
   postgres-data:
 
 networks:
